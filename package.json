@@ -1,0 +1,42 @@
+{
+  "name": "@nju33/flux",
+  "description": "",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/main/index.js",
+  "module": "dist/module/index.js",
+  "types": "dist/types/index.d.ts",
+  "source": "src/index.ts",
+  "files": [
+    "dist"
+  ],
+  "repository": "git@github.com:nju33/flux.git",
+  "homepage": "https://github.com/nju33/flux",
+  "bugs": "https://github.com/nju33/nju33/flux/issues",
+  "author": "nju33 <nju33.ki@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "prepare": "yarn build",
+    "test": "jest",
+    "typedoc": "typedoc --theme minimal --out docs src/index.ts --ignoreCompilerErrors",
+    "build.main": "tsc -P tsconfig.main.json",
+    "build.module": "tsc -P tsconfig.module.json",
+    "build.types": "tsc -P tsconfig.types.json --emitDeclarationOnly",
+    "build": "yarn build.main && yarn build.module && yarn build.types"
+  },
+  "devDependencies": {
+    "@geekcojp/tslint-config": "0.2.1",
+    "@types/jest": "23.3.10",
+    "jest": "23.6.0",
+    "prettier": "1.15.3",
+    "renovate-config-nju33": "0.0.1",
+    "ts-jest": "23.10.5",
+    "ts-node": "7.0.1",
+    "tslint": "5.12.0",
+    "typedoc": "0.13.0",
+    "typescript": "3.2.2"
+  },
+  "keywords": []
+}
