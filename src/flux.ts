@@ -4,10 +4,14 @@ export type CreateAction<AP extends {[x: string]: any}> = <
   type: P,
 ) => (payload: AP[P]) => {type: P; payload: AP[P]};
 
-export const createAction: CreateAction<any> = type => payload => {
-  return {
-    type: Symbol(type as string) as any,
-    payload,
+export const createAction: CreateAction<any> = type => {
+  const symbolType = Symbol(type as string) as any;
+
+  return payload => {
+    return {
+      type: symbolType,
+      payload,
+    };
   };
 };
 
