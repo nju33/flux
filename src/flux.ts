@@ -1,18 +1,29 @@
+export interface HandlePayload<
+  AP extends {[x: string]: any},
+  P extends keyof AP
+> {
+  (payload: AP[P]): {type: P; payload: AP[P]};
+  type: P;
+}
+
 export type CreateAction<AP extends {[x: string]: any}> = <
   P extends keyof AP = keyof AP
 >(
   type: P,
-) => (payload: AP[P]) => {type: P; payload: AP[P]};
+) => HandlePayload<AP, P>;
 
 export const createAction: CreateAction<any> = type => {
   const symbolType = Symbol(type as string) as any;
 
-  return payload => {
+  const payloadFn: HandlePayload<any, any> = function(payload: any) {
     return {
       type: symbolType,
       payload,
     };
   };
+  payloadFn.type = symbolType;
+
+  return payloadFn;
 };
 
 export type ActionUnion<

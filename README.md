@@ -43,16 +43,21 @@ const action = {
   fuga: createFooAction('fuga'),
 };
 
+console.log(action.hoge.type);
+// Symbol(hoge)
+console.log(action.hoge({aaa: 'aaa'}));
+// {type: Symbol(hoge), payload: {aaa: 'aaa'}}
+
 type FooActionUnion = ActionUnion<typeof action>;
 
-const aAction: FooActionUnion = {type: 'hoge', payload: {aaa: 'aaa'}} as any;
+const aAction: FooActionUnion = {
+  type: action.hoge.type,
+  payload: {aaa: 'aaa'},
+} as any;
 
-if (aAction.type === 'hoge') {
+if (aAction.type === action.hoge.type) {
   expect(aAction.payload.aaa).toBe('aaa');
 }
 
 expect(action.hoge({aaa: 'aaa'}).payload.aaa).toBe('aaa');
-
-// action.hoge({aaa: 'aaa'});
-// -> {type: Symbol(hoge), payload: {aaa: 'aaa'}}
 ```

@@ -23,9 +23,12 @@ const action = {
 type FooActionUnion = ActionUnion<typeof action>;
 
 test('', () => {
-  const aAction: FooActionUnion = {type: 'hoge', payload: {aaa: 'aaa'}} as any;
+  const aAction: FooActionUnion = {
+    type: action.hoge.type,
+    payload: {aaa: 'aaa'},
+  } as any;
 
-  if (aAction.type === 'hoge') {
+  if (aAction.type === action.hoge.type) {
     expect(aAction.payload.aaa).toBe('aaa');
   }
 
