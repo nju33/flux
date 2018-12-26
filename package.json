@@ -38,5 +38,11 @@
     "typedoc": "0.13.0",
     "typescript": "3.2.2"
   },
-  "keywords": []
+  "keywords": [],
+  "dependencies": {
+    "@types/camelcase-keys": "^4.0.0",
+    "@types/snakecase-keys": "^2.1.0",
+    "camelcase-keys": "^5.0.0",
+    "snakecase-keys": "^2.1.0"
+  }
 }

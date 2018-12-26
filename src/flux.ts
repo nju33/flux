@@ -15,6 +15,7 @@ export type CreateAction<AP extends {[x: string]: any}> = <
 export const createAction: CreateAction<any> = type => {
   const symbolType = Symbol(type as string) as any;
 
+  // tslint:disable-next-line:only-arrow-functions
   const payloadFn: HandlePayload<any, any> = function(payload: any) {
     return {
       type: symbolType,
