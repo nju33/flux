@@ -1,7 +1,7 @@
 {
   "name": "@nju33/flux",
   "description": "A flux utility",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "publishConfig": {
     "access": "public"
   },
