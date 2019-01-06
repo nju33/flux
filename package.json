@@ -29,8 +29,11 @@
   "devDependencies": {
     "@geekcojp/tslint-config": "0.2.1",
     "@types/jest": "23.3.11",
+    "@types/redux": "^3.6.0",
+    "immer": "^1.10.0",
     "jest": "23.6.0",
     "prettier": "1.15.3",
+    "redux": "^4.0.1",
     "renovate-config-nju33": "0.0.1",
     "ts-jest": "23.10.5",
     "ts-node": "7.0.1",
