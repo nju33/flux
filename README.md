@@ -1,5 +1,7 @@
 # @nju33/flux
 
+A Flux utility.
+
 [![github](https://badgen.net/badge//nju33,flux/000?icon=github&list=1)](https://github.com/nju33/flux)
 [![npm:version](https://badgen.net/npm/v/@nju33/flux?icon=npm&label=)](https://www.npmjs.com/package/@nju33/flux)
 [![typescript](https://badgen.net/badge/lang/typescript/0376c6?icon=npm)](https://www.typescriptlang.org/)

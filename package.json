@@ -1,6 +1,6 @@
 {
   "name": "@nju33/flux",
-  "description": "",
+  "description": "A flux utility",
   "version": "0.1.0",
   "publishConfig": {
     "access": "public"
@@ -41,7 +41,9 @@
     "typedoc": "0.14.0",
     "typescript": "3.2.2"
   },
-  "keywords": [],
+  "keywords": [
+    "flux"
+  ],
   "dependencies": {
     "@types/camelcase-keys": "^4.0.0",
     "@types/snakecase-keys": "^2.1.0",
