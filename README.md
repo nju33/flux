@@ -1,4 +1,6 @@
-# flux
+# @nju33/flux
+
+A Flux utility.
 
 [![github](https://badgen.net/badge//nju33,flux/000?icon=github&list=1)](https://github.com/nju33/flux)
 [![npm:version](https://badgen.net/npm/v/@nju33/flux?icon=npm&label=)](https://www.npmjs.com/package/@nju33/flux)
@@ -17,7 +19,7 @@
  * yarn add @nju33/flux
  * ```
  */
-import {createAction, CreateAction, ActionUnion} from '@nju33/flux';
+import Flux from '@nju33/flux';
 ````
 
 ## Example
@@ -25,9 +27,12 @@ import {createAction, CreateAction, ActionUnion} from '@nju33/flux';
 ```ts
 interface FooState {
   aaa: string;
-  bbb: string;
+  bbb: number;
 }
 
+/**
+ * define  in the form of `{[actionName]: payload}`
+ */
 interface FooActionPayload {
   hoge: {
     aaa: FooState['aaa'];
@@ -37,27 +42,47 @@ interface FooActionPayload {
   };
 }
 
-const createFooAction = createAction as CreateAction<FooActionPayload>;
-const action = {
-  hoge: createFooAction('hoge'),
-  fuga: createFooAction('fuga'),
-};
+const flux = new Flux<FooState, FooActionPayload>({aaa: '', bbb: -1});
+flux
+  .addAction('hoge', (state, payload) => {
+    const nextState = {...state};
+    nextState.aaa = payload.aaa;
+    return nextState;
+  })
+  .addAction('fuga', (state, payload) => {
+    // When with the `immer`
+    return produce(state, draft => {
+      draft.bbb = payload.bbb;
+    });
+  });
 
-console.log(action.hoge.type);
-// Symbol(hoge)
-console.log(action.hoge({aaa: 'aaa'}));
-// {type: Symbol(hoge), payload: {aaa: 'aaa'}}
+// For example, when using with the Redux.
+const store = redux.createStore(flux.createReducer());
 
-type FooActionUnion = ActionUnion<typeof action>;
+// In the below, A two action is executed at the same times.
+store.dispatch(flux.act('hoge', 'fuga')({aaa: 'aaa'}, {bbb: 111}));
+//
+// One action only.
+// store.dispatch(flux.act('hoge')({aaa: 'aaa'}));
+//
 
-const aAction: FooActionUnion = {
-  type: action.hoge.type,
-  payload: {aaa: 'aaa'},
-} as any;
+// Assert
+expect(store.getState()).toMatchObject({aaa: 'aaa', bbb: 111});
+```
 
-if (aAction.type === action.hoge.type) {
-  expect(aAction.payload.aaa).toBe('aaa');
-}
+In addition, `camelcase-keys` and `snakecase-keys` packages are included in this.
 
-expect(action.hoge({aaa: 'aaa'}).payload.aaa).toBe('aaa');
+```ts
+// If they are necessary.
+import {camelcaseKeys, snakecaseKeys} from '@nju33/flux';
+
+// ...
+
+store.dispatch(
+  flux.act('...')(
+    camelcaseKeys({
+      /* ... */
+    }),
+  ),
+);
 ```
