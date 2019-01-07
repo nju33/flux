@@ -28,17 +28,18 @@ export interface FluxAction<
 export interface FluxReducerItem<S, AP extends {[x: string]: any}> {
   type: keyof AP;
   actionProcess: FluxActionProcess<S, AP[keyof AP]>;
+  scopeNames?: string[];
 }
 
 /**
  * A Flux flow
  * @example
- * 
+ *
  * interface State {
  *   foo: string;
  *   bar: number;
  * }
- * 
+ *
  * // define  in the form of `{[actionName]: payload}`
  * interface ActionPayload {
  *   type1: {
@@ -62,33 +63,164 @@ export interface FluxReducerItem<S, AP extends {[x: string]: any}> {
  *
  */
 export class Flux<S, AP extends {[x: string]: any}> {
+  private reducerStackCache: FluxReducerItem<S, AP>[] | undefined;
   private reducerStack = [] as FluxReducerItem<S, AP>[];
+  allScopes = [] as string[];
+  currentScopes = [] as string[];
   rootType = (Symbol('rootType') as unknown) as RootType;
   types = {} as {[P in keyof AP]: P};
 
   constructor(public initialState: S) {}
 
-  addAction<P extends keyof AP>(
-    type: P,
-    actionProcess: FluxActionProcess<S, AP[P]>,
-  ) {
-    this.types[type] = (Symbol(type as string) as unknown) as P;
-    this.reducerStack.push({type: this.types[type], actionProcess});
+  private resetCache() {
+    this.reducerStackCache = undefined;
+  }
+
+  private hasScope(scopeName: string) {
+    return this.allScopes.indexOf(scopeName) > -1;
+  }
+
+  private hasCurrentScope(scopeName: string) {
+    return this.currentScopes.indexOf(scopeName) > -1;
+  }
+
+  private registerScope(scopeName: string): void {
+    if (this.allScopes.indexOf(scopeName) === -1) {
+      this.allScopes.push(scopeName);
+    }
+
+    if (this.currentScopes.indexOf(scopeName) === -1) {
+      this.currentScopes.push(scopeName);
+    }
+  }
+
+  private unregisterScope(scopeName: string): void {
+    const index = this.currentScopes.indexOf(scopeName);
+    this.currentScopes.splice(index, 1);
+  }
+
+  /**
+   * To enable all scope
+   */
+  allOn() {
+    if (this.currentScopes.length !== this.allScopes.length) {
+      this.currentScopes = this.allScopes;
+      this.resetCache();
+    }
 
     return this;
   }
 
+  on(scopeNames: string[] | string) {
+    if (typeof scopeNames === 'string') {
+      scopeNames = [scopeNames];
+    }
+
+    scopeNames.forEach(scopeName => {
+      if (!this.hasCurrentScope(scopeName)) {
+        this.registerScope(scopeName);
+        this.resetCache();
+      }
+    });
+
+    return this;
+  }
+
+  /**
+   * To disable all scope
+   */
+  allOff() {
+    if (this.currentScopes.length !== 0) {
+      this.currentScopes = [];
+      this.resetCache();
+    }
+
+    return this;
+  }
+
+  off(scopeNames: string[] | string) {
+    if (typeof scopeNames === 'string') {
+      scopeNames = [scopeNames];
+    }
+
+    scopeNames.forEach(scopeName => {
+      if (this.hasCurrentScope(scopeName)) {
+        this.unregisterScope(scopeName);
+        this.resetCache();
+      }
+    });
+
+    return this;
+  }
+
+  addAction<P extends keyof AP>(
+    type: P,
+    actionProcess: FluxActionProcess<S, AP[P]>,
+    scopeNames: string[],
+  ): this;
+
+  addAction<P extends keyof AP>(
+    type: P,
+    actionProcess: FluxActionProcess<S, AP[P]>,
+  ): this;
+
+  addAction<P extends keyof AP>(
+    type: P,
+    actionProcess: FluxActionProcess<S, AP[P]>,
+    scopeNames?: string[],
+  ) {
+    if (this.reducerStackCache !== undefined) {
+      this.resetCache();
+    }
+
+    this.types[type] = (Symbol(type as string) as unknown) as P;
+    if (scopeNames === undefined) {
+      this.reducerStack.push({type: this.types[type], actionProcess});
+    } else {
+      this.reducerStack.push({
+        type: this.types[type],
+        actionProcess,
+        scopeNames,
+      });
+
+      scopeNames.forEach(scopeName => {
+        if (!this.hasScope(scopeName)) {
+          this.registerScope(scopeName);
+        }
+      });
+    }
+
+    return this;
+  }
+
+  getReducerItems() {
+    if (this.reducerStackCache !== undefined) {
+      return this.reducerStackCache;
+    }
+
+    const result = this.reducerStack.filter(reducerItem => {
+      if (reducerItem.scopeNames === undefined) {
+        return true;
+      }
+
+      return reducerItem.scopeNames.some(scopeName => {
+        return this.hasCurrentScope(scopeName);
+      });
+    });
+
+    this.reducerStackCache = result;
+
+    return result;
+  }
+
   createReducer() {
-    return (
-      state: S = this.initialState,
-      action: FluxAction<AP>,
-    ) => {
+    return (state: S = this.initialState, action: FluxAction<AP>) => {
       if (action.type !== this.rootType) {
         return state;
       }
 
       action.actions.forEach(aAction => {
-        const target = this.reducerStack.find(reducerItem => {
+        const target = this.getReducerItems().find(reducerItem => {
           return aAction.type === reducerItem.type;
         });
 

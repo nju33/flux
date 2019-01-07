@@ -26,8 +26,9 @@ import Flux from '@nju33/flux';
 
 ```ts
 interface FooState {
-  aaa: string;
-  bbb: number;
+  str: string;
+  num: number;
+  bool: boolean;
 }
 
 /**
@@ -35,39 +36,65 @@ interface FooState {
  */
 interface FooActionPayload {
   hoge: {
-    aaa: FooState['aaa'];
+    str: FooState['str'];
   };
   fuga: {
-    bbb: FooState['bbb'];
+    num: FooState['num'];
   };
+  piyo: {
+    bool: FooState['bool'];
+  }
 }
 
-const flux = new Flux<FooState, FooActionPayload>({aaa: '', bbb: -1});
+const flux = new Flux<FooState, FooActionPayload>({str: '', num: -1: bool: false});
 flux
   .addAction('hoge', (state, payload) => {
     const nextState = {...state};
-    nextState.aaa = payload.aaa;
+    nextState.str = payload.str;
     return nextState;
   })
   .addAction('fuga', (state, payload) => {
     // When with the `immer`
     return produce(state, draft => {
-      draft.bbb = payload.bbb;
+      draft.num = payload.num;
     });
-  });
+  })
+
+// add the piyo action in the `something` scope.
+flux.scope('something').addAction('piyo', (state, payload) => {
+  const nextState = {...state};
+  nextState.bool = payload.bool;
+  return nextState;
+})
+//
+// or
+//
+// ```
+// flux.addAction('piyo', fn, ['something']);
+// ```
+//
 
 // For example, when using with the Redux.
 const store = redux.createStore(flux.createReducer());
 
-// In the below, A two action is executed at the same times.
-store.dispatch(flux.act('hoge', 'fuga')({aaa: 'aaa'}, {bbb: 111}));
+// In the below, A three action is executed at the same times.
+store.dispatch(flux.act('hoge', 'fuga', 'piyo')({str: 'str'}, {num: 111}, {bool: true}));
 //
 // One action only.
-// store.dispatch(flux.act('hoge')({aaa: 'aaa'}));
+//
+// ```
+// store.dispatch(flux.act('hoge')({str: 'str'}));
+// ```
 //
 
 // Assert
-expect(store.getState()).toMatchObject({aaa: 'aaa', bbb: 111});
+expect(store.getState()).toMatchObject({str: 'str', num: 111, bool: true});
+
+// All `something` scope action process removes from the reducer.
+flux.off('something');
+store.dispatch(flux.act('hoge', 'piyo')({str: 'str2'}, {bool: false}));
+// `bool` does not change
+expect(store.getState()).toMatchObject({str: 'str2', num: 111, bool: true});
 ```
 
 In addition, `camelcase-keys` and `snakecase-keys` packages are included in this.
