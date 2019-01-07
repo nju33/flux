@@ -24,7 +24,7 @@ import Flux from '@nju33/flux';
 
 ## Example
 
-```ts
+````ts
 interface FooState {
   str: string;
   num: number;
@@ -47,7 +47,7 @@ interface FooActionPayload {
 }
 
 const flux = new Flux<FooState, FooActionPayload>({str: '', num: -1: bool: false});
-flux
+const reducer = flux
   .addAction('hoge', (state, payload) => {
     const nextState = {...state};
     nextState.str = payload.str;
@@ -59,23 +59,16 @@ flux
       draft.num = payload.num;
     });
   })
-
-// add the piyo action in the `something` scope.
-flux.scope('something').addAction('piyo', (state, payload) => {
-  const nextState = {...state};
-  nextState.bool = payload.bool;
-  return nextState;
-})
-//
-// or
-//
-// ```
-// flux.addAction('piyo', fn, ['something']);
-// ```
-//
+  // add the piyo action in the `something` scope.
+  .addAction('piyo', (state, payload) => {
+    const nextState = {...state};
+    nextState.bool = payload.bool;
+    return nextState;
+  }, ['something'])
+  .createReducer();
 
 // For example, when using with the Redux.
-const store = redux.createStore(flux.createReducer());
+const store = redux.createStore(reducer);
 
 // In the below, A three action is executed at the same times.
 store.dispatch(flux.act('hoge', 'fuga', 'piyo')({str: 'str'}, {num: 111}, {bool: true}));
@@ -95,7 +88,7 @@ flux.off('something');
 store.dispatch(flux.act('hoge', 'piyo')({str: 'str2'}, {bool: false}));
 // `bool` does not change
 expect(store.getState()).toMatchObject({str: 'str2', num: 111, bool: true});
-```
+````
 
 In addition, `camelcase-keys` and `snakecase-keys` packages are included in this.
 

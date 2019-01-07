@@ -25,10 +25,14 @@ export interface FluxAction<
 /**
  * Data types connecting actions and processes.
  */
-export interface FluxReducerItem<S, AP extends {[x: string]: any}> {
+export interface FluxReducerItem<
+  S,
+  AP extends {[x: string]: any},
+  SN extends string
+> {
   type: keyof AP;
   actionProcess: FluxActionProcess<S, AP[keyof AP]>;
-  scopeNames?: string[];
+  scopeNames?: SN[];
 }
 
 /**
@@ -62,11 +66,15 @@ export interface FluxReducerItem<S, AP extends {[x: string]: any}> {
  * dispatch(flux.act('type1', 'type2')({}, {}));
  *
  */
-export class Flux<S, AP extends {[x: string]: any}> {
-  private reducerStackCache: FluxReducerItem<S, AP>[] | undefined;
-  private reducerStack = [] as FluxReducerItem<S, AP>[];
-  allScopes = [] as string[];
-  currentScopes = [] as string[];
+export class Flux<
+  S,
+  AP extends {[x: string]: any},
+  SN extends string = string
+> {
+  private reducerStackCache: FluxReducerItem<S, AP, SN>[] | undefined;
+  private reducerStack = [] as FluxReducerItem<S, AP, SN>[];
+  allScopes = [] as SN[];
+  currentScopes = [] as SN[];
   rootType = (Symbol('rootType') as unknown) as RootType;
   types = {} as {[P in keyof AP]: P};
 
@@ -76,25 +84,27 @@ export class Flux<S, AP extends {[x: string]: any}> {
     this.reducerStackCache = undefined;
   }
 
-  private hasScope(scopeName: string) {
+  private hasScope(scopeName: SN) {
     return this.allScopes.indexOf(scopeName) > -1;
   }
 
-  private hasCurrentScope(scopeName: string) {
+  private hasCurrentScope(scopeName: SN) {
     return this.currentScopes.indexOf(scopeName) > -1;
   }
 
-  private registerScope(scopeName: string): void {
+  private registerScope(scopeName: SN): void {
     if (this.allScopes.indexOf(scopeName) === -1) {
       this.allScopes.push(scopeName);
     }
+  }
 
+  private registerCurrentScope(scopeName: SN): void {
     if (this.currentScopes.indexOf(scopeName) === -1) {
       this.currentScopes.push(scopeName);
     }
   }
 
-  private unregisterScope(scopeName: string): void {
+  private unregisterCurrentScope(scopeName: SN): void {
     const index = this.currentScopes.indexOf(scopeName);
     this.currentScopes.splice(index, 1);
   }
@@ -111,14 +121,14 @@ export class Flux<S, AP extends {[x: string]: any}> {
     return this;
   }
 
-  on(scopeNames: string[] | string) {
+  on(scopeNames: SN[] | SN) {
     if (typeof scopeNames === 'string') {
       scopeNames = [scopeNames];
     }
 
     scopeNames.forEach(scopeName => {
       if (!this.hasCurrentScope(scopeName)) {
-        this.registerScope(scopeName);
+        this.registerCurrentScope(scopeName);
         this.resetCache();
       }
     });
@@ -138,14 +148,14 @@ export class Flux<S, AP extends {[x: string]: any}> {
     return this;
   }
 
-  off(scopeNames: string[] | string) {
+  off(scopeNames: SN[] | SN) {
     if (typeof scopeNames === 'string') {
       scopeNames = [scopeNames];
     }
 
     scopeNames.forEach(scopeName => {
       if (this.hasCurrentScope(scopeName)) {
-        this.unregisterScope(scopeName);
+        this.unregisterCurrentScope(scopeName);
         this.resetCache();
       }
     });
@@ -156,7 +166,7 @@ export class Flux<S, AP extends {[x: string]: any}> {
   addAction<P extends keyof AP>(
     type: P,
     actionProcess: FluxActionProcess<S, AP[P]>,
-    scopeNames: string[],
+    scopeNames: SN[],
   ): this;
 
   addAction<P extends keyof AP>(
@@ -167,7 +177,7 @@ export class Flux<S, AP extends {[x: string]: any}> {
   addAction<P extends keyof AP>(
     type: P,
     actionProcess: FluxActionProcess<S, AP[P]>,
-    scopeNames?: string[],
+    scopeNames?: SN[],
   ) {
     if (this.reducerStackCache !== undefined) {
       this.resetCache();
@@ -193,7 +203,7 @@ export class Flux<S, AP extends {[x: string]: any}> {
     return this;
   }
 
-  getReducerItems() {
+  private getReducerItems() {
     if (this.reducerStackCache !== undefined) {
       return this.reducerStackCache;
     }
@@ -213,7 +223,13 @@ export class Flux<S, AP extends {[x: string]: any}> {
     return result;
   }
 
-  createReducer() {
+  createReducer(initialScopes: SN[] | SN = this.allScopes) {
+    if (typeof initialScopes === 'string') {
+      this.currentScopes = [initialScopes];
+    } else {
+      this.currentScopes = initialScopes;
+    }
+
     return (state: S = this.initialState, action: FluxAction<AP>) => {
       if (action.type !== this.rootType) {
         return state;

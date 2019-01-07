@@ -88,7 +88,8 @@ test('with redux2', () => {
 
 describe('reducerItems', () => {
   test('do nothing', () => {
-    expect(flux.getReducerItems()).toHaveLength(3);
+    flux.createReducer();
+    expect((flux as any).getReducerItems()).toHaveLength(3);
 
     const store = createStore(flux.createReducer());
     store.dispatch(flux.act('piyo')({ccc: true}));
@@ -96,9 +97,10 @@ describe('reducerItems', () => {
   });
 
   test(`allOff().on('baz')`, () => {
-    expect(flux.getReducerItems()).toHaveLength(3);
+    flux.createReducer();
+    expect((flux as any).getReducerItems()).toHaveLength(3);
     flux.allOff().on('baz');
-    expect(flux.getReducerItems()).toHaveLength(3);
+    expect((flux as any).getReducerItems()).toHaveLength(3);
 
     const store = createStore(flux.createReducer());
     store.dispatch(flux.act('piyo')({ccc: true}));
@@ -106,9 +108,10 @@ describe('reducerItems', () => {
   });
 
   test(`off('baz')`, () => {
-    expect(flux.getReducerItems()).toHaveLength(3);
+    flux.createReducer();
+    expect((flux as any).getReducerItems()).toHaveLength(3);
     flux.off('baz');
-    expect(flux.getReducerItems()).toHaveLength(2);
+    expect((flux as any).getReducerItems()).toHaveLength(2);
 
     const store = createStore(flux.createReducer());
     store.dispatch(flux.act('hoge', 'piyo')({aaa: 'aaa'}, {ccc: true}));
