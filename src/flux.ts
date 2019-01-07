@@ -6,20 +6,28 @@ export enum RootType {}
 /**
  * When an action has called, Function to be executed.
  */
-export type FluxActionProcess<S, PL extends {[x: string]: any}> = (
+export type FluxRootActionProcess<S, PL extends {[x: string]: any}> = (
   state: S,
   payload: PL,
 ) => S | void;
 
-/**
- * Real action type of this.
- */
 export interface FluxAction<
   AP extends {[x: string]: any},
   P extends keyof AP = keyof AP
 > {
+  type: keyof AP;
+  payload: AP[P];
+}
+
+/**
+ * Real action type of this.
+ */
+export interface FluxRootAction<
+  AP extends {[x: string]: any},
+  P extends keyof AP = keyof AP
+> {
   type: RootType;
-  actions: {type: keyof AP; payload: AP[P]}[];
+  actions: FluxAction<AP, P>[];
 }
 
 /**
@@ -31,7 +39,7 @@ export interface FluxReducerItem<
   SN extends string
 > {
   type: keyof AP;
-  actionProcess: FluxActionProcess<S, AP[keyof AP]>;
+  actionProcess: FluxRootActionProcess<S, AP[keyof AP]>;
   scopeNames?: SN[];
 }
 
@@ -165,18 +173,18 @@ export class Flux<
 
   addAction<P extends keyof AP>(
     type: P,
-    actionProcess: FluxActionProcess<S, AP[P]>,
+    actionProcess: FluxRootActionProcess<S, AP[P]>,
     scopeNames: SN[],
   ): this;
 
   addAction<P extends keyof AP>(
     type: P,
-    actionProcess: FluxActionProcess<S, AP[P]>,
+    actionProcess: FluxRootActionProcess<S, AP[P]>,
   ): this;
 
   addAction<P extends keyof AP>(
     type: P,
-    actionProcess: FluxActionProcess<S, AP[P]>,
+    actionProcess: FluxRootActionProcess<S, AP[P]>,
     scopeNames?: SN[],
   ) {
     if (this.reducerStackCache !== undefined) {
@@ -230,7 +238,7 @@ export class Flux<
       this.currentScopes = initialScopes;
     }
 
-    return (state: S = this.initialState, action: FluxAction<AP>) => {
+    return (state: S = this.initialState, action: FluxRootAction<AP>) => {
       if (action.type !== this.rootType) {
         return state;
       }
@@ -287,7 +295,7 @@ export class Flux<
     p8: AP[T8],
     p9: AP[T9],
     p10: AP[T10],
-  ) => FluxAction<AP>);
+  ) => FluxRootAction<AP>);
 
   act<
     T1 extends keyof AP,
@@ -319,7 +327,7 @@ export class Flux<
     p7: AP[T7],
     p8: AP[T8],
     p9: AP[T9],
-  ) => FluxAction<AP>);
+  ) => FluxRootAction<AP>);
 
   act<
     T1 extends keyof AP,
@@ -348,7 +356,7 @@ export class Flux<
     p6: AP[T6],
     p7: AP[T7],
     p8: AP[T8],
-  ) => FluxAction<AP>);
+  ) => FluxRootAction<AP>);
 
   act<
     T1 extends keyof AP,
@@ -374,7 +382,7 @@ export class Flux<
     p5: AP[T5],
     p6: AP[T6],
     p7: AP[T7],
-  ) => FluxAction<AP>);
+  ) => FluxRootAction<AP>);
 
   act<
     T1 extends keyof AP,
@@ -397,7 +405,7 @@ export class Flux<
     p4: AP[T4],
     p5: AP[T5],
     p6: AP[T6],
-  ) => FluxAction<AP>);
+  ) => FluxRootAction<AP>);
 
   act<
     T1 extends keyof AP,
@@ -417,7 +425,7 @@ export class Flux<
     p3: AP[T3],
     p4: AP[T4],
     p5: AP[T5],
-  ) => FluxAction<AP>);
+  ) => FluxRootAction<AP>);
 
   act<
     T1 extends keyof AP,
@@ -429,19 +437,26 @@ export class Flux<
     t2: T2,
     t3: T3,
     t4: T4,
-  ): ((p1: AP[T1], p2: AP[T2], p3: AP[T3], p4: AP[T4]) => FluxAction<AP>);
+  ): ((p1: AP[T1], p2: AP[T2], p3: AP[T3], p4: AP[T4]) => FluxRootAction<AP>);
 
   act<T1 extends keyof AP, T2 extends keyof AP, T3 extends keyof AP>(
     t1: T1,
     t2: T2,
     t3: T3,
-  ): ((p1: AP[T1], p2: AP[T2], p3: AP[T3]) => FluxAction<AP>);
+  ): ((p1: AP[T1], p2: AP[T2], p3: AP[T3]) => FluxRootAction<AP>);
 
   act<T1 extends keyof AP, T2 extends keyof AP>(
     t1: T1,
     t2: T2,
-  ): ((p1: AP[T1], p2: AP[T2]) => FluxAction<AP>);
-  act<T1 extends keyof AP>(t1: T1): ((p1: AP[T1]) => FluxAction<AP>);
+  ): ((p1: AP[T1], p2: AP[T2]) => FluxRootAction<AP>);
+
+  act<T1 extends keyof AP>(t1: T1): ((p1: AP[T1]) => FluxRootAction<AP>);
+
+  act(
+    act: (
+      cb: {[P in keyof AP]: (payload: AP[P]) => FluxAction<AP, P>},
+    ) => FluxAction<AP>[],
+  ): FluxRootAction<AP>;
 
   act<
     T1 extends keyof AP,
@@ -455,7 +470,11 @@ export class Flux<
     T9 extends keyof AP,
     T10 extends keyof AP
   >(
-    t1: T1,
+    t1:
+      | T1
+      | ((
+          cb: {[P in keyof AP]: (payload: AP[P]) => FluxAction<AP, P>},
+        ) => FluxAction<AP>[]),
     t2?: T2,
     t3?: T3,
     t4?: T4,
@@ -465,7 +484,40 @@ export class Flux<
     t8?: T8,
     t9?: T9,
     t10?: T10,
-  ) {
+  ):
+    | ((
+        p1: AP[T1],
+        p2?: AP[T2],
+        p3?: AP[T3],
+        p4?: AP[T4],
+        p5?: AP[T5],
+        p6?: AP[T6],
+        p7?: AP[T7],
+        p8?: AP[T8],
+        p9?: AP[T9],
+        p10?: AP[T10],
+      ) => FluxRootAction<AP>)
+    | FluxRootAction<AP> {
+    if (typeof t1 === 'function') {
+      const actions = t1(
+        Object.keys(this.types).reduce(
+          (result, key) => {
+            result[key] = (payload: AP[keyof AP]) => ({
+              type: this.types[key],
+              payload,
+            });
+            return result;
+          },
+          {} as any,
+        ),
+      );
+
+      return {
+        type: this.rootType,
+        actions,
+      };
+    }
+
     return (
       p1: AP[T1],
       p2?: AP[T2],
@@ -477,7 +529,7 @@ export class Flux<
       p8?: AP[T8],
       p9?: AP[T9],
       p10?: AP[T10],
-    ): FluxAction<AP> => {
+    ): FluxRootAction<AP> => {
       const types = [t1, t2, t3, t4, t5, t6, t7, t8, t9, t10].filter(
         Boolean,
       ) as (keyof AP)[];

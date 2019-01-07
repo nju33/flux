@@ -83,6 +83,17 @@ store.dispatch(flux.act('hoge', 'fuga', 'piyo')({str: 'str'}, {num: 111}, {bool:
 // Assert
 expect(store.getState()).toMatchObject({str: 'str', num: 111, bool: true});
 
+// by function
+store.dispatch(flux.act(
+  ({hoge, fuga, piyo}) => [
+    hoge({str: 'str2'}),
+    fuga({num: 222}),
+  ]
+));
+
+// Assert
+expect(store.getState()).toMatchObject({str: 'str2', num: 222, bool: true});
+
 // All `something` scope action process removes from the reducer.
 flux.off('something');
 store.dispatch(flux.act('hoge', 'piyo')({str: 'str2'}, {bool: false}));

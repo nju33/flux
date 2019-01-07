@@ -37,13 +37,17 @@ beforeEach(() => {
         draft.bbb = payload.bbb;
       });
     })
-    .addAction('piyo', (state, payload) => {
-      piyoProcess(state, payload);
+    .addAction(
+      'piyo',
+      (state, payload) => {
+        piyoProcess(state, payload);
 
-      return produce(state, draft => {
-        draft.ccc = payload.ccc;
-      });
-    }, ['baz'])
+        return produce(state, draft => {
+          draft.ccc = payload.ccc;
+        });
+      },
+      ['baz'],
+    );
 });
 
 test('', () => {
@@ -76,6 +80,16 @@ test('with redux', () => {
   const store = createStore(flux.createReducer());
   store.dispatch(flux.act('hoge')({aaa: 'aaa'}));
   expect(store.getState()).toMatchObject({aaa: 'aaa', bbb: -1});
+});
+
+test('act by fn', () => {
+  const store = createStore(flux.createReducer());
+  const action = flux.act(({hoge, piyo}) => [
+    hoge({aaa: 'update'}),
+    piyo({ccc: true}),
+  ]);
+  store.dispatch(action);
+  expect(store.getState()).toMatchObject({aaa: 'update', bbb: -1, ccc: true});
 });
 
 test('with redux2', () => {
