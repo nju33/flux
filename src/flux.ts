@@ -231,7 +231,7 @@ export class Flux<
     return result;
   }
 
-  createReducer(initialScopes: SN[] | SN = this.allScopes) {
+  createReducer(initialScopes: SN[] | SN = [...this.allScopes]) {
     if (typeof initialScopes === 'string') {
       this.currentScopes = [initialScopes];
     } else {
