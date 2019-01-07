@@ -1,6 +1,8 @@
 {
-  "extends": "./tsconfig.base",
+  "extends": "@nju33/tsconfig-main",
+  "include": ["src"],
+  "exclude": ["src/__tests__/**/*", "src/**/*test*", "src/dev.ts"],
   "compilerOptions": {
-    "module": "commonjs"
+    "outDir": "dist/main"
   }
 }

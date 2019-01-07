@@ -1,9 +1,9 @@
 
 {
   "extends": "@nju33/tsconfig-module",
-  "include": ["src/index.ts"],
+  "include": ["src/iife.ts"],
   "exclude": ["src/__tests__/**/*", "src/**/*test*", "src/dev.ts"],
   "compilerOptions": {
-    "outDir": "dist/module"
+    "outDir": "iife-dist"
   }
 }

@@ -14,7 +14,7 @@ A Flux utility.
 
 ````js
 /**
- * To prepare of using the `@nju33/flux`
+ * To prepare of using the `Flux`
  * ```sh
  * yarn add @nju33/flux
  * ```
@@ -22,10 +22,19 @@ A Flux utility.
 import Flux from '@nju33/flux';
 ````
 
-## Example
+or
+
+```html
+<script src="https://unpkg.com/@nju33/flux/flux.js"></script>
+<script>
+  // Can use the `Flux` here.
+</script>
+```
+
+## Example by TypeScript
 
 ````ts
-interface FooState {
+interface State {
   str: string;
   num: number;
   bool: boolean;
@@ -34,72 +43,75 @@ interface FooState {
 /**
  * define  in the form of `{[actionName]: payload}`
  */
-interface FooActionPayload {
-  hoge: {
-    str: FooState['str'];
+interface ActionPayload {
+  foo: {
+    str: State['str'];
   };
-  fuga: {
-    num: FooState['num'];
+  bar: {
+    num: State['num'];
   };
-  piyo: {
-    bool: FooState['bool'];
-  }
+  baz: {
+    bool: State['bool'];
+  };
 }
 
-const flux = new Flux<FooState, FooActionPayload>({str: '', num: -1: bool: false});
+type NameSpace = 'something';
+
+const flux = new Flux<State, ActionPayload, NameSpace>({
+  str: '',
+  num: -1,
+  bool: false,
+});
+
 const reducer = flux
-  .addAction('hoge', (state, payload) => {
-    const nextState = {...state};
-    nextState.str = payload.str;
-    return nextState;
+  .addAction('foo', (state, payload) => {
+    // produce === `immer`
+    return produce(state, draft => {
+      draft.str = payload.str;
+    });
   })
-  .addAction('fuga', (state, payload) => {
-    // When with the `immer`
+  .addAction('bar', (state, payload) => {
     return produce(state, draft => {
       draft.num = payload.num;
     });
   })
-  // add the piyo action in the `something` scope.
-  .addAction('piyo', (state, payload) => {
-    const nextState = {...state};
-    nextState.bool = payload.bool;
-    return nextState;
-  }, ['something'])
+  .addAction(
+    'baz',
+    (state, payload) => {
+      return produce(state, draft => {
+        draft.bool = payload.bool;
+      });
+    },
+    // belongs to the 'something' scope
+    ['something'],
+  )
   .createReducer();
 
 // For example, when using with the Redux.
-const store = redux.createStore(reducer);
+const store = createStore(reducer);
 
-// In the below, A three action is executed at the same times.
-store.dispatch(flux.act('hoge', 'fuga', 'piyo')({str: 'str'}, {num: 111}, {bool: true}));
-//
-// One action only.
-//
-// ```
-// store.dispatch(flux.act('hoge')({str: 'str'}));
-// ```
-//
+// By function
+store.dispatch(flux.act(({ foo }) => [foo({ str: 'foo' })]));
+console.log('1. ', store.getState());
 
-// Assert
-expect(store.getState()).toMatchObject({str: 'str', num: 111, bool: true});
+// By curried
+const multiAct = flux.act('foo', 'bar');
+store.dispatch(multiAct({ str: 'foo2' }, { num: 222 }));
+console.log('2. ', store.getState());
 
-// by function
-store.dispatch(flux.act(
-  ({hoge, fuga, piyo}) => [
-    hoge({str: 'str2'}),
-    fuga({num: 222}),
-  ]
-));
-
-// Assert
-expect(store.getState()).toMatchObject({str: 'str2', num: 222, bool: true});
-
-// All `something` scope action process removes from the reducer.
+// It does not process actions belonging to the 'something' scope
+// Thus, `bool` remaining `false`
 flux.off('something');
-store.dispatch(flux.act('hoge', 'piyo')({str: 'str2'}, {bool: false}));
-// `bool` does not change
-expect(store.getState()).toMatchObject({str: 'str2', num: 111, bool: true});
+store.dispatch(flux.act(({ baz }) => [baz({ bool: true })]));
+console.log('3. ', store.getState());
+
+flux.allOn();
+store.dispatch(flux.act(({ baz }) => [baz({ bool: true })]));
+console.log('4. ', store.getState());
+
 ````
+
+[![Edit @nju33/flux](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/52p9oy8lyx?module=%2Fsrc%2Findex.ts)
 
 In addition, `camelcase-keys` and `snakecase-keys` packages are included in this.
 

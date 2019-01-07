@@ -24,10 +24,17 @@
     "build.main": "tsc -P tsconfig.main.json",
     "build.module": "tsc -P tsconfig.module.json",
     "build.types": "tsc -P tsconfig.types.json --emitDeclarationOnly",
-    "build": "yarn build.main && yarn build.module && yarn build.types"
+    "build.iife": "yarn build.iife.tsc && yarn build.iife.rollup",
+    "build.iife.tsc": "tsc -P tsconfig.iife.json",
+    "build.iife.rollup": "rollup iife-dist/iife.js --format iife --name Flux --file flux.js",
+    "build": "yarn build.main && yarn build.module && yarn build.types && yarn build.iife"
   },
   "devDependencies": {
     "@geekcojp/tslint-config": "0.2.1",
+    "@nju33/prettier": "^0.0.6",
+    "@nju33/tsconfig-main": "^0.0.6",
+    "@nju33/tsconfig-module": "^0.0.6",
+    "@nju33/tsconfig-types": "^0.0.6",
     "@types/jest": "23.3.11",
     "@types/redux": "3.6.0",
     "immer": "1.10.0",
@@ -35,6 +42,7 @@
     "prettier": "1.15.3",
     "redux": "4.0.1",
     "renovate-config-nju33": "0.0.1",
+    "rollup": "^1.0.2",
     "ts-jest": "23.10.5",
     "ts-node": "7.0.1",
     "tslint": "5.12.0",

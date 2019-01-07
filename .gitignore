@@ -1,6 +1,7 @@
 /docs
 /dist
-/vwxy.js
+/iife-dist
+/flux.js
 
 ### https://raw.github.com/github/gitignore/fad779220742a6d54ccfc0c1a0e5b3d820253de6/Node.gitignore
 
