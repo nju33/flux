@@ -10,7 +10,8 @@
   "types": "dist/types/index.d.ts",
   "source": "src/index.ts",
   "files": [
-    "dist"
+    "dist",
+    "flux.js"
   ],
   "repository": "git@github.com:nju33/flux.git",
   "homepage": "https://github.com/nju33/flux",
