@@ -6,10 +6,14 @@ export enum RootType {}
 /**
  * When an action has called, Function to be executed.
  */
-export type FluxRootActionProcess<S, PL extends {[x: string]: any}> = (
+export type FluxRootActionProcess<S, PL extends {[x: string]: any}> = ((
   state: S,
   payload: PL,
-) => S | void;
+) => S | void);
+
+export type FluxRootActionCurriedProcess<S, PL extends {[x: string]: any}> = ((
+  payload: PL,
+) => (state: S | undefined) => S | void);
 
 export interface FluxAction<
   AP extends {[x: string]: any},
@@ -39,7 +43,9 @@ export interface FluxReducerItem<
   SN extends string
 > {
   type: keyof AP;
-  actionProcess: FluxRootActionProcess<S, AP[keyof AP]>;
+  actionProcess:
+    | FluxRootActionCurriedProcess<S, AP[keyof AP]>
+    | FluxRootActionProcess<S, AP[keyof AP]>;
   scopeNames?: SN[];
 }
 
@@ -184,7 +190,20 @@ export class Flux<
 
   addAction<P extends keyof AP>(
     type: P,
-    actionProcess: FluxRootActionProcess<S, AP[P]>,
+    actionProcess: FluxRootActionCurriedProcess<S, AP[P]>,
+    scopeNames: SN[],
+  ): this;
+
+  addAction<P extends keyof AP>(
+    type: P,
+    actionProcess: FluxRootActionCurriedProcess<S, AP[P]>,
+  ): this;
+
+  addAction<P extends keyof AP>(
+    type: P,
+    actionProcess:
+      | FluxRootActionProcess<S, AP[P]>
+      | FluxRootActionCurriedProcess<S, AP[P]>,
     scopeNames?: SN[],
   ) {
     if (this.reducerStackCache !== undefined) {
@@ -252,7 +271,22 @@ export class Flux<
           return;
         }
 
-        const result = target.actionProcess(state, aAction.payload);
+        let result: S | void;
+        if (target.actionProcess.length === 1) {
+          const fn = target.actionProcess as FluxRootActionCurriedProcess<
+            S,
+            AP[keyof AP]
+          >;
+          const setState = fn(aAction.payload);
+          result = setState(state);
+        } else {
+          const fn = target.actionProcess as FluxRootActionProcess<
+            S,
+            AP[keyof AP]
+          >;
+          result = fn(state, aAction.payload);
+        }
+
         if (result !== undefined) {
           state = result;
         }
