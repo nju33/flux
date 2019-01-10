@@ -262,6 +262,12 @@ export class Flux<
     };
   }
 
+  act(
+    act: (
+      cb: {[P in keyof AP]: (payload: AP[P]) => FluxAction<AP, P>},
+    ) => FluxAction<AP>[],
+  ): FluxRootAction<AP>;
+
   act<
     T1 extends keyof AP,
     T2 extends keyof AP,
@@ -451,12 +457,6 @@ export class Flux<
   ): ((p1: AP[T1], p2: AP[T2]) => FluxRootAction<AP>);
 
   act<T1 extends keyof AP>(t1: T1): ((p1: AP[T1]) => FluxRootAction<AP>);
-
-  act(
-    act: (
-      cb: {[P in keyof AP]: (payload: AP[P]) => FluxAction<AP, P>},
-    ) => FluxAction<AP>[],
-  ): FluxRootAction<AP>;
 
   act<
     T1 extends keyof AP,
