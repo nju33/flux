@@ -1511,10 +1511,10 @@ ignore-walk@^3.0.1:
   dependencies:
     minimatch "^3.0.4"
 
-immer@1.10.2:
-  version "1.10.2"
-  resolved "https://registry.yarnpkg.com/immer/-/immer-1.10.2.tgz#f3e4f1f64bc60d2870261d4986c87724d2b64e9a"
-  integrity sha512-yC/yXx9GY+tsxS35oUkQL9ruYqJA19ezt9kIab3SdzDn+Y18/MPnopuzgAE9y9p8mF9dK9EjcqFf4ZJ0n4Azjg==
+immer@1.10.5:
+  version "1.10.5"
+  resolved "https://registry.yarnpkg.com/immer/-/immer-1.10.5.tgz#a4fd1d12587a166da769763f881c0039fa61c557"
+  integrity sha512-5z/nKfF1GQoLCt2JraST2PFkUTwegZDUX3+dd0u2xD2IVxFAbXCZDvWnG8KtxXoqLzRSTqTpf8s/8bXkZE61xA==
 
 import-local@^1.0.0:
   version "1.0.0"
