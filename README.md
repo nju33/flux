@@ -113,7 +113,7 @@ console.log('4. ', store.getState());
 
 [![Edit @nju33/flux](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/52p9oy8lyx?module=%2Fsrc%2Findex.ts)
 
-In addition, `camelcase-keys` and `snakecase-keys` packages are included in this.
+In addition, [camelcase-keys](https://github.com/sindresorhus/camelcase-keys) and [snakecase-keys](https://github.com/bendrucker/snakecase-keys) packages are included in this.
 
 ```ts
 // If they are necessary.
