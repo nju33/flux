@@ -21,9 +21,9 @@ interface FooActionPayload {
 }
 
 let flux: Flux<FooState, FooActionPayload>;
-let hogeProcess = jest.fn();
-let fugaProcess = jest.fn();
-let piyoProcess = jest.fn();
+const hogeProcess = jest.fn();
+const fugaProcess = jest.fn();
+const piyoProcess = jest.fn();
 beforeEach(() => {
   flux = new Flux<FooState, FooActionPayload>({aaa: '', bbb: -1, ccc: false});
   flux

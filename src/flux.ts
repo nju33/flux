@@ -131,6 +131,7 @@ export class Flux<
 
   on(scopeNames: SN[] | SN) {
     if (typeof scopeNames === 'string') {
+      // tslint:disable-next-line:no-parameter-reassignment
       scopeNames = [scopeNames];
     }
 
@@ -158,6 +159,7 @@ export class Flux<
 
   off(scopeNames: SN[] | SN) {
     if (typeof scopeNames === 'string') {
+      // tslint:disable-next-line:no-parameter-reassignment
       scopeNames = [scopeNames];
     }
 
@@ -254,6 +256,7 @@ export class Flux<
 
         const result = target.actionProcess(state, aAction.payload);
         if (result !== undefined) {
+          // tslint:disable-next-line:no-parameter-reassignment
           state = result;
         }
       });

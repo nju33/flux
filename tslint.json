@@ -1,3 +1,6 @@
 {
-    "extends": ["@geekcojp/tslint-config"]
+    "extends": ["@geekcojp/tslint-config"],
+    "rules": {
+        "max-file-line-count": false
+    }
 }
