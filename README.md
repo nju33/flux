@@ -4,6 +4,7 @@ A Flux utility.
 
 [![github](https://badgen.net/badge//nju33,flux/000?icon=github&list=1)](https://github.com/nju33/flux)
 [![npm:version](https://badgen.net/npm/v/@nju33/flux?icon=npm&label=)](https://www.npmjs.com/package/@nju33/flux)
+[![minzipped size](https://badgen.net/bundlephobia/minzip/@nju33/flux)](https://bundlephobia.com/result?p=@nju33/flux)
 [![typescript](https://badgen.net/badge/lang/typescript/0376c6?icon=npm)](https://www.typescriptlang.org/)
 [![ci:status](https://badgen.net/circleci/github/nju33/flux)](https://circleci.com/gh/nju33/flux)
 [![dependencies Status](https://david-dm.org/nju33/flux/status.svg)](https://david-dm.org/nju33/flux)
