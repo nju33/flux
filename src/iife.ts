@@ -1,4 +1,5 @@
-"use strict";
+// tslint:disable-next-line:quotemark
+'use strict';
 
 import {Flux} from './flux';
 

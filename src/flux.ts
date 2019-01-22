@@ -137,6 +137,7 @@ export class Flux<
 
   on(scopeNames: SN[] | SN) {
     if (typeof scopeNames === 'string') {
+      // tslint:disable-next-line:no-parameter-reassignment
       scopeNames = [scopeNames];
     }
 
@@ -164,6 +165,7 @@ export class Flux<
 
   off(scopeNames: SN[] | SN) {
     if (typeof scopeNames === 'string') {
+      // tslint:disable-next-line:no-parameter-reassignment
       scopeNames = [scopeNames];
     }
 
@@ -288,6 +290,7 @@ export class Flux<
         }
 
         if (result !== undefined) {
+          // tslint:disable-next-line:no-parameter-reassignment
           state = result;
         }
       });
@@ -295,6 +298,12 @@ export class Flux<
       return state;
     };
   }
+
+  act(
+    act: (
+      cb: {[P in keyof AP]: (payload: AP[P]) => FluxAction<AP, P>},
+    ) => FluxAction<AP>[],
+  ): FluxRootAction<AP>;
 
   act<
     T1 extends keyof AP,
@@ -485,12 +494,6 @@ export class Flux<
   ): ((p1: AP[T1], p2: AP[T2]) => FluxRootAction<AP>);
 
   act<T1 extends keyof AP>(t1: T1): ((p1: AP[T1]) => FluxRootAction<AP>);
-
-  act(
-    act: (
-      cb: {[P in keyof AP]: (payload: AP[P]) => FluxAction<AP, P>},
-    ) => FluxAction<AP>[],
-  ): FluxRootAction<AP>;
 
   act<
     T1 extends keyof AP,
