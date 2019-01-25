@@ -38,7 +38,7 @@
     "@nju33/tsconfig-types": "0.0.6",
     "@types/jest": "23.3.13",
     "@types/redux": "3.6.0",
-    "immer": "1.10.5",
+    "immer": "1.12.1",
     "jest": "23.6.0",
     "prettier": "1.16.0",
     "redux": "4.0.1",
