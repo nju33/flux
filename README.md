@@ -71,19 +71,19 @@ const reducer = flux
     // produce === `immer`
     return produce(state, draft => {
       draft.str = payload.str;
-    });
+    }) as State;
   })
   .addAction('bar', (state, payload) => {
     return produce(state, draft => {
       draft.num = payload.num;
-    });
+    }) as State;
   })
   .addAction(
     'baz',
     (state, payload) => {
       return produce(state, draft => {
         draft.bool = payload.bool;
-      });
+      }) as State;
     },
     // belongs to the 'something' scope
     ['something'],
