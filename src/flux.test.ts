@@ -23,11 +23,11 @@ interface FooActionPayload {
 let flux: Flux<FooState, FooActionPayload>;
 const hogeProcess = jest.fn();
 const fugaProcess = jest.fn();
-const piyoProcess = jest.fn();
+// let piyoProcess = jest.fn();
 beforeEach(() => {
   flux = new Flux<FooState, FooActionPayload>({aaa: '', bbb: -1, ccc: false});
   flux
-    .addAction('hoge', (state, payload) => {
+    .addAction('hoge', payload => state => {
       hogeProcess(state, payload);
       state.aaa = payload.aaa;
     })
@@ -39,13 +39,10 @@ beforeEach(() => {
     })
     .addAction(
       'piyo',
-      (state, payload) => {
-        piyoProcess(state, payload);
-
-        return produce(state, draft => {
+      payload => state =>
+        produce(state, draft => {
           draft.ccc = payload.ccc;
-        });
-      },
+        }),
       ['baz'],
     );
 });
