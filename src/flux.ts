@@ -6,14 +6,14 @@ export enum RootType {}
 /**
  * When an action has called, Function to be executed.
  */
-export type FluxRootActionProcess<S, PL extends {[x: string]: any}> = ((
+export type FluxRootActionProcess<S, PL extends {[x: string]: any}> = (
   state: S,
   payload: PL,
-) => S | void);
+) => S | void;
 
-export type FluxRootActionCurriedProcess<S, PL extends {[x: string]: any}> = ((
+export type FluxRootActionCurriedProcess<S, PL extends {[x: string]: any}> = (
   payload: PL,
-) => (state: S | undefined) => S | void);
+) => (state: S) => S | void;
 
 export interface FluxAction<
   AP extends {[x: string]: any},
@@ -327,7 +327,7 @@ export class Flux<
     t8: T8,
     t9: T9,
     t10: T10,
-  ): ((
+  ): (
     p1: AP[T1],
     p2: AP[T2],
     p3: AP[T3],
@@ -338,7 +338,7 @@ export class Flux<
     p8: AP[T8],
     p9: AP[T9],
     p10: AP[T10],
-  ) => FluxRootAction<AP>);
+  ) => FluxRootAction<AP>;
 
   act<
     T1 extends keyof AP,
@@ -360,7 +360,7 @@ export class Flux<
     t7: T7,
     t8: T8,
     t9: T9,
-  ): ((
+  ): (
     p1: AP[T1],
     p2: AP[T2],
     p3: AP[T3],
@@ -370,7 +370,7 @@ export class Flux<
     p7: AP[T7],
     p8: AP[T8],
     p9: AP[T9],
-  ) => FluxRootAction<AP>);
+  ) => FluxRootAction<AP>;
 
   act<
     T1 extends keyof AP,
@@ -390,7 +390,7 @@ export class Flux<
     t6: T6,
     t7: T7,
     t8: T8,
-  ): ((
+  ): (
     p1: AP[T1],
     p2: AP[T2],
     p3: AP[T3],
@@ -399,7 +399,7 @@ export class Flux<
     p6: AP[T6],
     p7: AP[T7],
     p8: AP[T8],
-  ) => FluxRootAction<AP>);
+  ) => FluxRootAction<AP>;
 
   act<
     T1 extends keyof AP,
@@ -417,7 +417,7 @@ export class Flux<
     t5: T5,
     t6: T6,
     t7: T7,
-  ): ((
+  ): (
     p1: AP[T1],
     p2: AP[T2],
     p3: AP[T3],
@@ -425,7 +425,7 @@ export class Flux<
     p5: AP[T5],
     p6: AP[T6],
     p7: AP[T7],
-  ) => FluxRootAction<AP>);
+  ) => FluxRootAction<AP>;
 
   act<
     T1 extends keyof AP,
@@ -441,14 +441,14 @@ export class Flux<
     t4: T4,
     t5: T5,
     t6: T6,
-  ): ((
+  ): (
     p1: AP[T1],
     p2: AP[T2],
     p3: AP[T3],
     p4: AP[T4],
     p5: AP[T5],
     p6: AP[T6],
-  ) => FluxRootAction<AP>);
+  ) => FluxRootAction<AP>;
 
   act<
     T1 extends keyof AP,
@@ -462,13 +462,13 @@ export class Flux<
     t3: T3,
     t4: T4,
     t5: T5,
-  ): ((
+  ): (
     p1: AP[T1],
     p2: AP[T2],
     p3: AP[T3],
     p4: AP[T4],
     p5: AP[T5],
-  ) => FluxRootAction<AP>);
+  ) => FluxRootAction<AP>;
 
   act<
     T1 extends keyof AP,
@@ -480,20 +480,20 @@ export class Flux<
     t2: T2,
     t3: T3,
     t4: T4,
-  ): ((p1: AP[T1], p2: AP[T2], p3: AP[T3], p4: AP[T4]) => FluxRootAction<AP>);
+  ): (p1: AP[T1], p2: AP[T2], p3: AP[T3], p4: AP[T4]) => FluxRootAction<AP>;
 
   act<T1 extends keyof AP, T2 extends keyof AP, T3 extends keyof AP>(
     t1: T1,
     t2: T2,
     t3: T3,
-  ): ((p1: AP[T1], p2: AP[T2], p3: AP[T3]) => FluxRootAction<AP>);
+  ): (p1: AP[T1], p2: AP[T2], p3: AP[T3]) => FluxRootAction<AP>;
 
   act<T1 extends keyof AP, T2 extends keyof AP>(
     t1: T1,
     t2: T2,
-  ): ((p1: AP[T1], p2: AP[T2]) => FluxRootAction<AP>);
+  ): (p1: AP[T1], p2: AP[T2]) => FluxRootAction<AP>;
 
-  act<T1 extends keyof AP>(t1: T1): ((p1: AP[T1]) => FluxRootAction<AP>);
+  act<T1 extends keyof AP>(t1: T1): (p1: AP[T1]) => FluxRootAction<AP>;
 
   act<
     T1 extends keyof AP,
