@@ -48,7 +48,7 @@
     "ts-node": "8.1.0",
     "tslint": "5.15.0",
     "typedoc": "0.14.2",
-    "typescript": "3.4.3"
+    "typescript": "3.4.4"
   },
   "keywords": [
     "flux"
