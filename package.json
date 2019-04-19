@@ -34,7 +34,7 @@
     "@geekcojp/tslint-config": "0.2.1",
     "@nju33/prettier": "0.0.11",
     "@nju33/tsconfig-main": "0.0.7",
-    "@nju33/tsconfig-module": "0.0.7",
+    "@nju33/tsconfig-module": "0.0.11",
     "@nju33/tsconfig-types": "0.0.7",
     "@types/jest": "24.0.11",
     "@types/redux": "3.6.0",
