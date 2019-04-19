@@ -344,12 +344,12 @@
   dependencies:
     "@nju33/tsconfig-base" "^0.0.11"
 
-"@nju33/tsconfig-types@0.0.7":
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@nju33/tsconfig-types/-/tsconfig-types-0.0.7.tgz#5070da93c0ff3a140276c49e0c2bd9361a0abac2"
-  integrity sha512-8QQb5RvwKw/5E4wSkJiY5RdVjA2eg35tIwhyUqEigHH4uj+npB2xFcZ/M4BnmfTheSEa2qqcE8MM+WarFfGIFw==
+"@nju33/tsconfig-types@0.0.11":
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/@nju33/tsconfig-types/-/tsconfig-types-0.0.11.tgz#d3b3d244f3cf70ca58c6e74cf113ae45bc58a143"
+  integrity sha512-a7T3802Zrt3m1gdJ+L2TxwT0vFCceRkDkwT/EHwwcl86AgRWrKqexKKVkCWCux7kHTp04AThKOoRt/cePANxhw==
   dependencies:
-    "@nju33/tsconfig-base" "^0.0.7"
+    "@nju33/tsconfig-base" "^0.0.11"
 
 "@types/babel__core@^7.1.0":
   version "7.1.0"
