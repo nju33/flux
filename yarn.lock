@@ -315,10 +315,10 @@
     "@types/istanbul-lib-coverage" "^2.0.0"
     "@types/yargs" "^12.0.9"
 
-"@nju33/prettier@0.0.7":
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@nju33/prettier/-/prettier-0.0.7.tgz#d8f31fe1a4e774aa3c7b51a80cd1c2fa91224dd9"
-  integrity sha512-t6geeZTQvbe150R9FZm9g6OCB5ay1toWzDdYV0WbZA9t3mEjlb4CpBLnUZoF5DScF+B5C7Qp1i6acjbgmWay7w==
+"@nju33/prettier@0.0.11":
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/@nju33/prettier/-/prettier-0.0.11.tgz#2bdd4b90f940f2923ad8fe3ab42e0b9f6c2a9b3d"
+  integrity sha512-Qe2Vy2IphnC4Aivse1ct1128F0Tkp1yKIHzBi6K8t0VTIaPCBmloyV6vU+VrolAIR3X9cE/K7iN2sACboHPzeQ==
 
 "@nju33/tsconfig-base@^0.0.7":
   version "0.0.7"
