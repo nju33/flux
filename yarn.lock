@@ -325,6 +325,11 @@
   resolved "https://registry.yarnpkg.com/@nju33/tsconfig-base/-/tsconfig-base-0.0.11.tgz#01e0a7a7cd5fdf726e3df6bdaf5375da05ff2e61"
   integrity sha512-NnSBvw5L9ykyuBpfVrOkSRPf8wcUUqXhIuq+g2CuNnok/ty4foRzelUDOKM00XOpQbDURQd/kqYmlOo8Ue8JYA==
 
+"@nju33/tsconfig-base@^0.0.18":
+  version "0.0.18"
+  resolved "https://registry.yarnpkg.com/@nju33/tsconfig-base/-/tsconfig-base-0.0.18.tgz#eaea7677f42906d21756068ca2efc52675740e71"
+  integrity sha512-aaXVs7cBFFJ0zPcfiyncqVTVCjMM6LZ54lw1SwWRakjUhU7nam5HhqrRQOXnIzosVq1wa07vjvCEZ19NsL2u7w==
+
 "@nju33/tsconfig-main@0.0.11":
   version "0.0.11"
   resolved "https://registry.yarnpkg.com/@nju33/tsconfig-main/-/tsconfig-main-0.0.11.tgz#c614ed98d8f056204ee399afe916fab4de51dac6"
@@ -332,12 +337,12 @@
   dependencies:
     "@nju33/tsconfig-base" "^0.0.11"
 
-"@nju33/tsconfig-module@0.0.11":
-  version "0.0.11"
-  resolved "https://registry.yarnpkg.com/@nju33/tsconfig-module/-/tsconfig-module-0.0.11.tgz#dab85af4bf6d4f5c2d66ba4f2eeb2b40c01e1f48"
-  integrity sha512-tBq/0elOa4rN6V8tsTjbPYmbTEdDEvZG6a2gM1sCAxkF1iBnr+fDBzHJWsMnRvm4yzrmmEQjF+hz31q9aqWLAw==
+"@nju33/tsconfig-module@0.0.18":
+  version "0.0.18"
+  resolved "https://registry.yarnpkg.com/@nju33/tsconfig-module/-/tsconfig-module-0.0.18.tgz#a02c1a38bc6d0c21584e7d1ff43bfe68c807f000"
+  integrity sha512-hCLZzm9Vj2IWAaDjInGRkWvcGdGjR9NKEKEUI+rBEUvifroJApv9N17fqS2R94zAcMFPHPYz+Osd4/lKqRN6Cg==
   dependencies:
-    "@nju33/tsconfig-base" "^0.0.11"
+    "@nju33/tsconfig-base" "^0.0.18"
 
 "@nju33/tsconfig-types@0.0.11":
   version "0.0.11"
