@@ -315,15 +315,10 @@
     "@types/istanbul-lib-coverage" "^2.0.0"
     "@types/yargs" "^12.0.9"
 
-"@nju33/prettier@0.0.18":
-  version "0.0.18"
-  resolved "https://registry.yarnpkg.com/@nju33/prettier/-/prettier-0.0.18.tgz#2a1429f9323e25bed01c8e8e59d91ed70f3f6fad"
-  integrity sha512-ADSLyMRVnj8HD7rl4fP+LwlEvb1oTRgxClXDpOx1ecnmremC/nGdFBXqxb1F3TfgZyWH8++v6kNHhbzUm6EWTA==
-
-"@nju33/tsconfig-base@^0.0.11":
-  version "0.0.11"
-  resolved "https://registry.yarnpkg.com/@nju33/tsconfig-base/-/tsconfig-base-0.0.11.tgz#01e0a7a7cd5fdf726e3df6bdaf5375da05ff2e61"
-  integrity sha512-NnSBvw5L9ykyuBpfVrOkSRPf8wcUUqXhIuq+g2CuNnok/ty4foRzelUDOKM00XOpQbDURQd/kqYmlOo8Ue8JYA==
+"@nju33/prettier@0.0.24":
+  version "0.0.24"
+  resolved "https://registry.yarnpkg.com/@nju33/prettier/-/prettier-0.0.24.tgz#4957776b6a2935fbdffff8f2426f531b090c1d64"
+  integrity sha512-3M/mBBNe/+t4j+RJCVtj5j5UAs8/wf3MWO1SmtOKYtpOpdlfIxKihnWwejNko1mjHvCvfqTA1VbY88VcdCU8OA==
 
 "@nju33/tsconfig-base@^0.0.18":
   version "0.0.18"
