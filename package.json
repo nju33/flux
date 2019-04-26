@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@geekcojp/tslint-config": "0.2.1",
-    "@nju33/prettier": "0.0.18",
+    "@nju33/prettier": "0.0.24",
     "@nju33/tsconfig-main": "0.0.18",
     "@nju33/tsconfig-module": "0.0.18",
     "@nju33/tsconfig-types": "0.0.18",
