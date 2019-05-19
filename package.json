@@ -43,7 +43,7 @@
     "prettier": "1.17.1",
     "redux": "4.0.1",
     "renovate-config-nju33": "0.0.1",
-    "rollup": "1.12.2",
+    "rollup": "1.12.3",
     "ts-jest": "24.0.2",
     "ts-node": "8.1.0",
     "tslint": "5.16.0",
