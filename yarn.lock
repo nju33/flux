@@ -317,10 +317,10 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^12.0.9"
 
-"@nju33/prettier@0.0.25":
-  version "0.0.25"
-  resolved "https://registry.yarnpkg.com/@nju33/prettier/-/prettier-0.0.25.tgz#93f01e9f6bd9ce2f5e19df68e6d43b6666376a9e"
-  integrity sha512-U8Db7EtX+d9/uTFmR84TP6aejuqQoy37CUbONkPiXNFfFVqXpnVEHMcLy71sccnOEc0i4Sf5WQLew1aKFl0EOQ==
+"@nju33/prettier@0.0.26":
+  version "0.0.26"
+  resolved "https://registry.yarnpkg.com/@nju33/prettier/-/prettier-0.0.26.tgz#718266f2b8bed8935cc8bc0542e39196655596b3"
+  integrity sha512-Il89mHr8+wNrKLXXK+WeCQ1flYUfhK4nhRy5aJcLUaqnorVoypSiSB7ORxRQnN0gMlXvhrDpujamvPFH4uwHOQ==
 
 "@nju33/tsconfig-base@^0.0.25":
   version "0.0.25"
