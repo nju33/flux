@@ -40,7 +40,7 @@
     "@types/redux": "3.6.0",
     "immer": "2.1.5",
     "jest": "24.8.0",
-    "prettier": "1.17.1",
+    "prettier": "1.18.2",
     "redux": "4.0.1",
     "renovate-config-nju33": "0.0.1",
     "rollup": "1.13.1",
