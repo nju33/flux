@@ -39,7 +39,7 @@
     "@types/jest": "24.0.17",
     "@types/redux": "3.6.0",
     "immer": "2.1.5",
-    "jest": "24.8.0",
+    "jest": "24.9.0",
     "prettier": "1.18.2",
     "redux": "4.0.4",
     "renovate-config-nju33": "0.0.1",
