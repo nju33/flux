@@ -45,7 +45,7 @@
     "renovate-config-nju33": "0.0.1",
     "rollup": "1.27.5",
     "ts-jest": "24.2.0",
-    "ts-node": "8.5.2",
+    "ts-node": "8.5.4",
     "tslint": "5.20.1",
     "typedoc": "0.15.3",
     "typescript": "3.4.5"
