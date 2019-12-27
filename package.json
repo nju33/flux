@@ -41,7 +41,7 @@
     "immer": "2.1.5",
     "jest": "24.9.0",
     "prettier": "1.19.1",
-    "redux": "4.0.4",
+    "redux": "4.0.5",
     "renovate-config-nju33": "0.0.1",
     "rollup": "1.27.13",
     "ts-jest": "24.2.0",
