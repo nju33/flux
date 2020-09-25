@@ -2502,10 +2502,15 @@ map-cache@^0.2.2:
   resolved "https://registry.yarnpkg.com/map-cache/-/map-cache-0.2.2.tgz#c32abd0bd6525d9b051645bb4f26ac5dc98a0dbf"
   integrity sha1-wyq9C9ZSXZsFFkW7TyasXcmKDb8=
 
-map-obj@^3.0.0, map-obj@~3.0.0:
+map-obj@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/map-obj/-/map-obj-3.0.0.tgz#4221cc62360f88c0735f9e7c0813bd889657f490"
   integrity sha512-Ot+2wruG8WqTbJngDxz0Ifm03y2pO4iL+brq/l+yEkGjUza03BnMQqX2XT//Jls8MOOl2VTHviAoLX+/nq/HXw==
+
+map-obj@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/map-obj/-/map-obj-4.0.0.tgz#20a2ac4341c42570a85de7a976ab6ba60e3c0870"
+  integrity sha512-Cqo6mRdpHmRD95I1vMjIKAv4KnH8Sn2me3Q1+BOFPboOzT7x7qr8lhtRmFwNG48RDiouOhiRL+L92kMpeBLhWw==
 
 map-visit@^1.0.0:
   version "1.0.0"
@@ -3406,13 +3411,13 @@ slash@^2.0.0:
   resolved "https://registry.yarnpkg.com/slash/-/slash-2.0.0.tgz#de552851a1759df3a8f206535442f5ec4ddeab44"
   integrity sha512-ZYKh3Wh2z1PpEXWr0MpSBZ0V6mZHAQfYevttO11c51CaWjGTaadiKZ+wVt1PbMlDV5qhMFslpZCemhwOK7C89A==
 
-snakecase-keys@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/snakecase-keys/-/snakecase-keys-2.1.0.tgz#619833e8ff730a74eb0348eaa2f871f97bc92297"
-  integrity sha512-oQSiCIgNCwixBf8Kxgv0SPo67zQSutIEymAk/dkgcdZEOMPvGMGPua/WwYGPG4LLHArGGews3CB3zEEfqlMk2g==
+snakecase-keys@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/snakecase-keys/-/snakecase-keys-3.0.0.tgz#2098b1b742836361c30fd2d01f411669040803fa"
+  integrity sha512-Q4CHDNUMW9wguGYbyofue3wH+7WBu1YXXQvAo/bQ43TDdPJn8CG6N/coAaFWoaNQxq9FNtSSISRAK51yfezHog==
   dependencies:
-    map-obj "~3.0.0"
-    to-snake-case "~1.0.0"
+    map-obj "^4.0.0"
+    to-snake-case "^1.0.0"
 
 snapdragon-node@^2.0.1:
   version "2.1.1"
@@ -3733,7 +3738,7 @@ to-regex@^3.0.1, to-regex@^3.0.2:
     regex-not "^1.0.2"
     safe-regex "^1.1.0"
 
-to-snake-case@~1.0.0:
+to-snake-case@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/to-snake-case/-/to-snake-case-1.0.0.tgz#ce746913897946019a87e62edfaeaea4c608ab8c"
   integrity sha1-znRpE4l5RgGah+Yu366upMYIq4w=
