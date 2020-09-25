@@ -814,14 +814,14 @@ callsites@^3.0.0:
   resolved "https://registry.yarnpkg.com/callsites/-/callsites-3.0.0.tgz#fb7eb569b72ad7a45812f93fd9430a3e410b3dd3"
   integrity sha512-tWnkwu9YEq2uzlBDI4RcLn8jrFvF9AOi8PxDNU3hZZjJcjkcRAq3vCI+vZcg1SuxISDYe86k9VZFwAxDiJGoAw==
 
-camelcase-keys@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/camelcase-keys/-/camelcase-keys-5.0.0.tgz#67250d1d2e6617ed0568463e56fa337845706695"
-  integrity sha512-RFdQsUUi4TS/xg4RoLwmpw9hwOp/M0OY+9g3Oa90sH+tueZ1Cd7vXl4fEaCbydiGp1xo+eUr+wq9jLjRPLjhtg==
+camelcase-keys@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/camelcase-keys/-/camelcase-keys-6.0.0.tgz#12a07a6f50189213c3e8626c4069e28b997d01d1"
+  integrity sha512-NW1C7M9/uDZlfDP0+pWv0yAtgni7AZ9bYKtWgIfJylNXUFfis2BxsX3lCVuZE12wtRePEfJjnG6T9CnMohEybw==
   dependencies:
-    camelcase "^5.0.0"
-    map-obj "^3.0.0"
-    quick-lru "^1.0.0"
+    camelcase "^5.3.1"
+    map-obj "^4.0.0"
+    quick-lru "^4.0.1"
 
 camelcase@^4.1.0:
   version "4.1.0"
@@ -2502,7 +2502,12 @@ map-cache@^0.2.2:
   resolved "https://registry.yarnpkg.com/map-cache/-/map-cache-0.2.2.tgz#c32abd0bd6525d9b051645bb4f26ac5dc98a0dbf"
   integrity sha1-wyq9C9ZSXZsFFkW7TyasXcmKDb8=
 
-map-obj@^3.0.0, map-obj@~3.0.0:
+map-obj@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/map-obj/-/map-obj-4.0.0.tgz#20a2ac4341c42570a85de7a976ab6ba60e3c0870"
+  integrity sha512-Cqo6mRdpHmRD95I1vMjIKAv4KnH8Sn2me3Q1+BOFPboOzT7x7qr8lhtRmFwNG48RDiouOhiRL+L92kMpeBLhWw==
+
+map-obj@~3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/map-obj/-/map-obj-3.0.0.tgz#4221cc62360f88c0735f9e7c0813bd889657f490"
   integrity sha512-Ot+2wruG8WqTbJngDxz0Ifm03y2pO4iL+brq/l+yEkGjUza03BnMQqX2XT//Jls8MOOl2VTHviAoLX+/nq/HXw==
@@ -3049,10 +3054,10 @@ qs@~6.5.2:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
   integrity sha512-N5ZAX4/LxJmF+7wN74pUD6qAh9/wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91/odN2dW/WOl7qQHNDGA==
 
-quick-lru@^1.0.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/quick-lru/-/quick-lru-1.1.0.tgz#4360b17c61136ad38078397ff11416e186dcfbb8"
-  integrity sha1-Q2CxfGETatOAeDl/8RQW4Ybc+7g=
+quick-lru@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/quick-lru/-/quick-lru-4.0.1.tgz#5b8878f113a58217848c6482026c73e1ba57727f"
+  integrity sha512-ARhCpm70fzdcvNQfPoy49IaanKkTlRWF2JMzqhcJbhSFRZv7nPTvZJdcY7301IPmvW+/p0RgIWnQDLJxifsQ7g==
 
 rc@^1.2.7:
   version "1.2.8"
